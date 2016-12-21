@@ -8,7 +8,7 @@
 #	python m3truid.py
 #   or launch the .py file
 
-# Input: Android database at /data/data/com.android.providers.media (root needed to extract)
+# Input: Android database at /data/data/com.android.providers.media
 # adb root
 # adb pull /data/data/com.android.providers.media/databases/external.db
 
@@ -30,7 +30,6 @@ try:
 	db = sqlite3.connect(databaseFile)
 	db.row_factory = sqlite3.Row
 	
-	
 	cursor_findprefix = db.cursor()
 	cursor_findprefix.execute('''SELECT audio._data FROM audio_playlists_map AS apm INNER JOIN audio_playlists AS ap INNER JOIN audio WHERE apm.playlist_id=ap._id AND apm.audio_id=audio._id ORDER BY RANDOM() LIMIT 20''')
 	rand_paths = cursor_findprefix.fetchall()
@@ -39,9 +38,8 @@ try:
 
 	suggestPrefix = os.path.commonprefix(rand_paths_list) # TODO: Check if ends with \ or / 
 	cropPrefix = raw_input("Media absolute base path ("+suggestPrefix+"): ")
-	if databaseFile is "":
+	if cropPrefix is "":
 		cropPrefix = defaultDatabase
-
 
 	
 	cursor_playlists = db.cursor()
@@ -62,7 +60,6 @@ try:
 			cursor_playlist_items = db.cursor()
 			cursor_playlist_items.execute('''SELECT audio._data,artist,album,title,playlist_id FROM audio_playlists_map AS apm INNER JOIN audio WHERE apm.playlist_id=? AND apm.audio_id=audio._id ORDER BY apm.playlist_id''',(playlist['_id'],))
 			all_tracks = cursor_playlist_items.fetchall()
-			
 			 
 			for track in all_tracks:
 				m3u_file.write(u'#EXTINF:-1,'+track['artist']+' - '+track['title']+'\r\n')
@@ -72,17 +69,10 @@ try:
 				m3u_file.write(track_path+'\r\n')
 				#print "\t",track['title']
 
-
 			m3u_file.close()
-
 
 except sqlite3.Error as e:
     #db.rollback()
     raise e
 finally:
     db.close()
-	
-db_loc = sqlite3.connect(databaseFile)
-
-db_loc.close()
-	
