@@ -31,9 +31,10 @@ adb pull /data/data/com.android.providers.media/databases/external.db
  pip install slugify
  ```
  
-3. Run
+3. Download & Run
 ---
 
+- Download [`m3truid.py`](https://github.com/kriswebdev/m3truid/releases/download/v0.1/m3truid.py)
 - Run `python m3truid.py` or double-click on the `m3truid.py` file.
 - Press ENTER to accept the suggested values.
 - The M3U files contain relative paths to the media files. Store the M3U in the base folder that will be prompted.
