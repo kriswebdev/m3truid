@@ -23,7 +23,7 @@ adb pull /data/data/com.android.providers.media/databases/external.db
 2. Install dependencies
 ---
 
-- Install [Python](https://www.python.org/downloads/) or [ActivePython](http://www.activestate.com/activepython/downloads) on your PC.
+- Install [Python](https://www.python.org/downloads/) or [ActivePython](http://www.activestate.com/activepython/downloads) version 2.x (NOT 3.x) on your PC.
   - Choose to add Python to your PATH environment variable
 - From a command prompt, run:
 
